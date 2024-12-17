@@ -12,7 +12,7 @@ let Player2 =0
 let topScore =0
 
 async function getNewDeck(){
-    const response = await fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle")
+    const response = await fetch("https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
     const card = await response.json() 
 
     drawCardBtn.disabled = false
@@ -27,11 +27,6 @@ async function getNewDeck(){
     remainingCards.textContent = "Remaining cards :" + card.remaining            
 }
 
-
-
-// Dont write getNewDeck() with paranthesis otherwise it will execute immediately without
-// waiting for the button to be clicked. Just add getNewDeck. Means execute the 
-// function later as they are callback funcs
 newDeckBtn.addEventListener("click", getNewDeck)
 
 drawCardBtn.addEventListener("click", async () => {
@@ -39,7 +34,7 @@ drawCardBtn.addEventListener("click", async () => {
     if (deckId === undefined) {
         await getNewDeck()
     }
-    const res = await fetch(`https://apis.scrimba.com/deckofcards/api/deck/${deckId}/draw/?count=2`)
+    const res = await fetch(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`)
     const data = await res.json()        
                        
     cardsContainer.children[0].innerHTML 
@@ -88,20 +83,3 @@ function determineCardWinner(card1, card2) {
     }   
 }
 
-// function getNewDeck(){
-//     fetch("https://apis.scrimba.com/deckofcards/api/deck/new/shuffle")
-//         .then(res => res.json())
-//         .then(card => {                
-//                 deckId = card.deck_id
-//                 console.log(deckId)
-//                 remainingCards.textContent = "Remaining cards :" + card.remaining
-//             })
-// }
-
-
-/**
- * Challenge:
- * 
- * Create a spot in the HTML for the cards to be placed in.
- * Typical playing cards have a 5:7 ratio (width-to-height).
- */
